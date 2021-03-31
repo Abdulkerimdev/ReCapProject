@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Core.EntityFramework;
+using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
@@ -7,26 +8,8 @@ using System.Text;
 
 namespace DataAccess.Concrete
 {
-    public class EfBrandDal : IBrandDal
+    public class EfBrandDal : EfEntityRepositoryBase<Brand, CarDbContext>, IBrandDal
     {
-        public void Add(Brand entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Brand entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Brand> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Brand entity)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

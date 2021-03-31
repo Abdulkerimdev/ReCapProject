@@ -1,8 +1,14 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -14,47 +20,45 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-        public void Add(Car car)
+
+        public IResult Add(Car car)
         {
             if (car.CarName.Length < 2 || car.DailyPrice <= 0)
             {
-                Console.WriteLine("isim ve fiyatı gözden geçiriniz");
+                return new ErrorResult(Messages.CarNotAdded);
             }
-            else
-            {
-                _carDal.Add(car);
-            }
-           
+
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
+
         }
 
         public void Delete(Car car)
         {
             _carDal.Delete(car);
+
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
-        public List<Car> GetById(int Id)
+        public IDataResult<List<CarDetailDto>> GetAllCarDetails()
         {
-            return _carDal.GetById(Id);
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails());
+
         }
 
-        public List<Car> GetCarsByBrandId(int Id)
+        public IDataResult<List<Car>> GetById(int Id)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Car> GetCarsByColorId(int Id)
-        {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Car>>(_carDal.GetByID(c => c.Id == Id));
         }
 
         public void Update(Car car)
         {
             _carDal.Update(car);
+
         }
     }
 }

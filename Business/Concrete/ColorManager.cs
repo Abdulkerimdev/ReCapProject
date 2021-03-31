@@ -14,7 +14,6 @@ namespace Business.Concrete
         {
             _colorDal = colorDal;
         }
-
         public void Add(Color color)
         {
             _colorDal.Add(color);

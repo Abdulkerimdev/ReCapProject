@@ -1,8 +1,11 @@
 ﻿using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Concrete.InMemory
@@ -19,10 +22,7 @@ namespace DataAccess.Concrete.InMemory
         }
         public void Add(Car car)
         {
-           
-                cars.Add(car);
-            
-            
+            cars.Add(car);
         }
 
 
@@ -32,6 +32,18 @@ namespace DataAccess.Concrete.InMemory
             cars.Remove(carToDelete);
         }
 
+  
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarDetailDto> GetAllCarDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+   
 
         public void Update(Car car)
         {
@@ -40,14 +52,11 @@ namespace DataAccess.Concrete.InMemory
 
         }
 
-        List<Car> ICarDal.GetAll()
+        List<Car> IEntityRepository<Car>.GetByID(Expression<Func<Car, bool>> filter)
         {
-            return cars;
-        }
-
-        List<Car> ICarDal.GetById(int Id)
-        {
-            return cars.Where(c => c.Id == Id).ToList();
+            throw new NotImplementedException();
         }
     }
 }
+
+     

@@ -14,7 +14,6 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
-
         public void Add(Brand brand)
         {
             _brandDal.Add(brand);

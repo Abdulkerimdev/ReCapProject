@@ -1,37 +1,35 @@
-﻿using DataAccess.Abstract;
+﻿using Core.EntityFramework;
+using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DataAccess.Concrete
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, CarDbContext>, ICarDal
     {
-        public void Add(Car car)
+        public List<CarDetailDto> GetAllCarDetails()
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Car car)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Car> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Car> GetById(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Car car)
-        {
-            throw new NotImplementedException();
+            using (CarDbContext context = new CarDbContext())
+            {
+                var result = from c in context.Cars
+                             join co in context.Colors
+                             on c.ColorId equals co.ColorId
+                             join br in context.Brands 
+                             on c.BrandId equals br.BrandId
+                             select new CarDetailDto
+                             {
+                                 CarName = c.CarName,
+                                 BrandName = br.BrandName,
+                                 ColorName = co.ColorName,
+                                 DailyPrice = c.DailyPrice
+                             };
+                return result.ToList();
+            }
         }
     }
 }
