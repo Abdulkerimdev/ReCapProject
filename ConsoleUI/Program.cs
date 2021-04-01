@@ -11,17 +11,10 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            
-            carManager.Add(new Car
-            {
-                CarName = "toros",
-                Id = 5,
-                BrandId = 4,
-                ColorId = 6,
-                DailyPrice = 10,
-                Description = "garaj otosu",
-                ModelYear = 1999
-            });
+
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(new User { FirstName = "kerim", LastName = "dev", Email = "denemekerim@gmail.com", Password = "123" });
+
 
             /*
             var result = carManager.GetAllCarDetails();

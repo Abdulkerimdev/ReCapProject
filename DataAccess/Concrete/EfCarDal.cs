@@ -1,6 +1,5 @@
 ﻿using Core.EntityFramework;
 using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
@@ -19,15 +18,12 @@ namespace DataAccess.Concrete
                 var result = from c in context.Cars
                              join co in context.Colors
                              on c.ColorId equals co.ColorId
-                             join br in context.Brands 
-                             on c.BrandId equals br.BrandId
-                             select new CarDetailDto
-                             {
-                                 CarName = c.CarName,
-                                 BrandName = br.BrandName,
-                                 ColorName = co.ColorName,
-                                 DailyPrice = c.DailyPrice
-                             };
+                             join b in context.Brands
+                             on c.BrandId equals b.BrandId
+                    
+
+                             select new CarDetailDto { CarName = c.CarName, ColorName = co.ColorName, BrandName = b.BrandName };
+
                 return result.ToList();
             }
         }
